@@ -11,6 +11,7 @@ import sys, os
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))          # ensure local 'locales' wins over site packages
 sys.path.insert(0, str(ROOT / "src"))  # allow 'src.*'
+from locales.language_manager import initialize_language, load_translations, get_text
 
 # Show quick environment info in sidebar (remove later)
 import streamlit as st
@@ -52,7 +53,6 @@ sys.path.insert(0, str(ROOT / "src"))  # so 'src.*' is importable
 # ----------------------
 
 # Language system
-from locales.language_manager import initialize_language, load_translations, get_text
 
 # Branded visualizations (from src/)
 from src.visualizations import (
@@ -325,6 +325,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
