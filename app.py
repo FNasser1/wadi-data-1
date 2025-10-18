@@ -11,7 +11,35 @@ import sys, os
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))          # ensure local 'locales' wins over site packages
 sys.path.insert(0, str(ROOT / "src"))  # allow 'src.*'
-from locales.language_manager import initialize_language, load_translations, get_text
+# Show quick environment info in sidebar (you already have this; keep it if useful)
+import streamlit as st
+with st.sidebar.expander("Debug paths", expanded=False):
+    st.write("CWD:", os.getcwd())
+    st.write("ROOT:", ROOT)
+    st.write("sys.path[0..3]:", sys.path[:3])
+    st.write("Exists locales?:", (ROOT / "locales").exists())
+    st.write("Exists language_manager.py?:", (ROOT / "locales" / "language_manager.py").exists())
+    st.write("Exists en.json?:", (ROOT / "locales" / "en.json").exists())
+    st.write("Exists ar.json?:", (ROOT / "locales" / "ar.json").exists())
+
+# Try normal import, then graceful fallback with on-screen error if it fails
+try:
+    from locales.language_manager import initialize_language, load_translations, get_text
+except Exception as e:
+    st.sidebar.error(f"Language module import failed: {type(e).__name__}: {e}")
+    # Fallback loader that still lets the app run
+    import json
+    def load_translations(lang: str):
+        p = ROOT / "locales" / f"{lang}.json"
+        with open(p, "r", encoding="utf-8") as f:
+            return json.load(f)
+    def get_text(key: str):
+        return st.session_state.get("translations", {}).get(key, key)
+    def initialize_language(default_lang: str = "en"):
+        if "language" not in st.session_state:
+            st.session_state.language = default_lang
+        if "translations" not in st.session_state:
+            st.session_state.translations = load_translations(st.session_state.language)
 
 # Show quick environment info in sidebar (remove later)
 import streamlit as st
@@ -325,6 +353,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
