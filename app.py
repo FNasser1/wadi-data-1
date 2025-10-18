@@ -1,7 +1,6 @@
 # app.py
 # Wadi Data — Predictive Maintenance Dashboard
 
-from __future__ import annotations   # ← MUST be first (after optional docstring/comments)
 
 from __future__ import annotations  # must be first
 
@@ -326,6 +325,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
