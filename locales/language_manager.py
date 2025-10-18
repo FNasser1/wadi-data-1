@@ -1,10 +1,31 @@
 import json
 import streamlit as st
+import os
 
 def load_translations(lang):
     """Load language file (JSON) from locales/ directory."""
-    with open(f'locales/{lang}.json', 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        # Try different possible paths for Streamlit Cloud
+        possible_paths = [
+            f'locales/{lang}.json',
+            f'./locales/{lang}.json',
+            f'/mount/src/wadi-data-1/locales/{lang}.json'
+        ]
+        
+        for path in possible_paths:
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except FileNotFoundError:
+                continue
+        
+        # If no file found, return empty dict
+        st.error(f"Translation file for {lang} not found")
+        return {}
+        
+    except Exception as e:
+        st.error(f"Error loading translations: {e}")
+        return {}
 
 def get_text(key):
     """Return translated text from session state."""
