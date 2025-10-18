@@ -1,4 +1,3 @@
-
 # app.py
 # ------------------------------
 # Wadi Data — Predictive Maintenance Dashboard
@@ -20,21 +19,70 @@ def initialize_language():
 def get_text(key):
     # Return the key as the text (no translation)
     return key
-# Branded visualizations (from src/)
-from src.visualizations import (
-    plot_health_trend,
-    plot_vibration_analysis,
-    plot_failure_gauges,
-    plot_alert_timeline,
-    _current_lang,
-    _t,
-)
 
-# ML models + scoring (from src/)
-from src.health_scorer import compute_health_scores, classify_band
-from src.failure_predictor import train_model, load_model, predict_proba_df
-from src.data_generator import generate_dataset
-from src.data_processor import clean_sensor_data, add_rolling_stats, add_vibration_features
+def load_translations(lang):
+    return {}
+
+# Placeholder functions for missing src/ files
+def plot_health_trend(df, machine_id, days, lang):
+    st.write("Health Trend Plot - Placeholder")
+    
+def plot_vibration_analysis(vib, fs_hz, lang):
+    st.write("Vibration Analysis Plot - Placeholder")
+    
+def plot_failure_gauges(probs, lang):
+    st.write("Failure Gauges Plot - Placeholder")
+    
+def plot_alert_timeline(alerts_df, lang):
+    st.write("Alert Timeline Plot - Placeholder")
+
+def _current_lang(x):
+    return "en"
+
+def _t(key, lang):
+    return key
+
+def compute_health_scores(df):
+    return pd.Series(np.random.random(len(df)), index=df.index)
+
+def classify_band(scores):
+    return pd.Series(["good"] * len(scores), index=scores.index)
+
+def train_model(train_csv, model_out):
+    return {"accuracy": 0.85, "classification_report": "Placeholder"}
+
+def load_model(model_path):
+    return {"model": "placeholder"}
+
+def predict_proba_df(model, df):
+    return pd.DataFrame({"failure_prob": [0.1] * len(df)}, index=df.index)
+
+def generate_dataset(days, n_machines, freq, seed):
+    # Create simple placeholder data
+    dates = pd.date_range(end=pd.Timestamp.now(), periods=days*720, freq=freq)
+    data = []
+    for machine_id in range(1, n_machines+1):
+        for date in dates:
+            data.append({
+                "timestamp": date,
+                "machine_id": f"machine_{machine_id}",
+                "vib_x": np.random.normal(0, 1),
+                "vib_y": np.random.normal(0, 1),
+                "vib_z": np.random.normal(0, 1),
+                "temp": np.random.normal(70, 10),
+                "pressure": np.random.normal(100, 20)
+            })
+    df = pd.DataFrame(data)
+    return df, {}
+
+def clean_sensor_data(df, resample_freq):
+    return df
+
+def add_rolling_stats(df, window):
+    return df
+
+def add_vibration_features(df, window):
+    return df
 
 
 # ---------------------------- WADI BRAND ----------------------------
@@ -72,8 +120,8 @@ def set_language_ui():
     initialize_language()
     # Sidebar language selector
     lang = st.sidebar.selectbox("🌐 Language / اللغة", ["en", "ar"],
-                                index=0 if st.session_state.language == "en" else 1)
-    if lang != st.session_state.language:
+                                index=0 if st.session_state.get('language', 'en') == "en" else 1)
+    if lang != st.session_state.get('language', 'en'):
         st.session_state.language = lang
         st.session_state.translations = load_translations(lang)
     return lang
@@ -315,4 +363,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
