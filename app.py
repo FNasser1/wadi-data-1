@@ -1,15 +1,35 @@
 # app.py
-# ------------------------------
 # Wadi Data — Predictive Maintenance Dashboard
-# ------------------------------
 
-# --- PATH BOOTSTRAP (must be first) ---
+from __future__ import annotations   # ← MUST be first (after optional docstring/comments)
+
+# --- PATH BOOTSTRAP ---
 from pathlib import Path
 import sys
-
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))          # so 'locales' is importable
 sys.path.insert(0, str(ROOT / "src"))  # so 'src.*' is importable
+# ----------------------
+
+# Language system
+from locales.language_manager import initialize_language, load_translations, get_text
+
+# Branded visualizations (from src/)
+from src.visualizations import (
+    plot_health_trend,
+    plot_vibration_analysis,
+    plot_failure_gauges,
+    plot_alert_timeline,
+    _current_lang,
+    _t,
+)
+
+# ML models + scoring (from src/)
+from src.health_scorer import compute_health_scores, classify_band
+from src.failure_predictor import train_model, load_model, predict_proba_df
+from src.data_generator import generate_dataset
+from src.data_processor import clean_sensor_data, add_rolling_stats, add_vibration_features
+
 # --------------------------------------
 
 
@@ -266,4 +286,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
