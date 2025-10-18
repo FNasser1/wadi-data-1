@@ -3,6 +3,16 @@
 # Wadi Data — Predictive Maintenance Dashboard
 # ------------------------------
 
+# --- PATH BOOTSTRAP (must be first) ---
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))          # so 'locales' is importable
+sys.path.insert(0, str(ROOT / "src"))  # so 'src.*' is importable
+# --------------------------------------
+
+
 from __future__ import annotations
 import os
 from pathlib import Path
@@ -256,3 +266,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
