@@ -1,0 +1,9 @@
+{
+  "dashboard_title": "🏭 لوحة التحكم للصيانة التنبؤية",
+  "equipment_health": "صحة المعدات",
+  "alerts": "التنبيهات",
+  "health_score": "درجة الصحة",
+  "normal": "طبيعي",
+  "warning": "تحذير",
+  "critical": "حرج"
+}

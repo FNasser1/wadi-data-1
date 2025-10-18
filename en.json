@@ -1,0 +1,9 @@
+{
+  "dashboard_title": "🏭 Predictive Maintenance Dashboard",
+  "equipment_health": "Equipment Health",
+  "alerts": "Alerts",
+  "health_score": "Health Score",
+  "normal": "Normal",
+  "warning": "Warning",
+  "critical": "Critical"
+}
