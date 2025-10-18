@@ -13,8 +13,13 @@ import pandas as pd
 import streamlit as st
 
 # Language system
-from locales.language_manager import initialize_language, load_translations, get_text
+# Simple placeholder functions instead of localization
+def initialize_language():
+    pass  # Do nothing
 
+def get_text(key):
+    # Return the key as the text (no translation)
+    return key
 # Branded visualizations (from src/)
 from src.visualizations import (
     plot_health_trend,
@@ -310,3 +315,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
