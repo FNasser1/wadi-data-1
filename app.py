@@ -33,7 +33,6 @@ from src.data_processor import clean_sensor_data, add_rolling_stats, add_vibrati
 # --------------------------------------
 
 
-from __future__ import annotations
 import os
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -286,5 +285,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
